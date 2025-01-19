@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nama');
             $table->string('rombel');
-            $table->integer('nisn');
+            $table->integer('nisn')->unique();
             $table->string('rayon');
             $table->timestamps();
         });

@@ -5,34 +5,29 @@ namespace App\Http\Controllers;
 use App\Models\student;
 use Illuminate\Http\Request;
 
+
 class StudentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function data()
     {
-        //
+        $students = student::all();
+        return view('student.data', compact('students'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function buat()
     {
-        //
-        return view('student.create');
+        return view('student.tambah');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function proses(Request $request)
     {
         $request->validate([
             'nama' => 'required|min:3',
             'rombel' => 'required',
-            'nisn' => 'required|numeric',
+            'nisn' => 'required|numeric|unique:students,nisn', // adalah aturan yang memastikan bahwa nilai nisn yang dimasukkan belum ada di dalam database 
             'rayon' => 'required',
         ]);
 
@@ -46,35 +41,38 @@ class StudentController extends Controller
         return redirect()->back()->with('sukses','berhasil di tambah!');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(student $student)
+
+    public function edit($id)
     {
-        //
+        $student = student::find($id);
+
+        return view('student.edit', compact('student'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(student $student)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'nama' => 'required|min:3',
+            'rombel' => 'required',
+            'nisn' => 'required|numeric|unique:students,nisn',
+            'rayon' => 'required',
+        ]);
+
+        student::where('id', $id)->update([
+            'nama' => $request->nama,
+            'rombel' => $request->rombel,
+            'nisn' => $request->nisn,
+            'rayon' => $request->rayon,
+        ]);
+
+        return redirect()->route('Siswa.data')->with('sukses', 'berhasil mengubah data!');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, student $student)
-    {
-        //
-    }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(student $student)
+    public function destroy($id)
     {
-        //
+        student::where('id', $id)->delete();
+
+        return redirect()->back()->with('hapus', 'berhasil menghapus data!');
     }
 }

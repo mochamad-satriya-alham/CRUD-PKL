@@ -13,4 +13,6 @@ class student extends Model
         'nisn',
         'rayon',
     ];
+
+    
 }

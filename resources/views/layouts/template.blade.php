@@ -16,10 +16,10 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Data Siswa</a>
+                        <a class="nav-link" href="{{route('Siswa.data')}}">Data Siswa</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('Student.create')}}">Tambah Siswa</a>
+                        <a class="nav-link" href="{{route('Siswa.tambah')}}">Tambah Siswa</a>
                     </li>
                 </ul>
             </div>

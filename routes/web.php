@@ -7,7 +7,11 @@ Route::get('/', function () {
     return view('layouts.template');
 });
 
-Route::prefix('Student')->name('Student.')->group(function(): void{
-    Route::get('create', [StudentController::class, 'create'])->name('create');
-    Route::post('store', [StudentController::class, 'store'])->name('store');
+Route::prefix('Siswa')->name('Siswa.')->group(function(): void{
+    Route::get('create', [StudentController::class, 'buat'])->name('tambah');
+    Route::post('proses', [StudentController::class, 'proses'])->name('proses');
+    Route::get('/', [StudentController::class, 'data'])->name('data');
+    Route::get('/{id}', [StudentController::class, 'edit'])->name('edit');
+    Route::patch('/{id}', [StudentController::class, 'update'])->name('update');
+    Route::delete('/{id}', [StudentController::class, 'destroy'])->name('hapus');
 });
