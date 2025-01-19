@@ -54,7 +54,7 @@ class StudentController extends Controller
         $request->validate([
             'nama' => 'required|min:3',
             'rombel' => 'required',
-            'nisn' => 'required|numeric|unique:students,nisn',
+            'nisn' => 'required|numeric|unique:students,nisn,' . $id,
             'rayon' => 'required',
         ]);
 
