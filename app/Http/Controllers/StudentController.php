@@ -27,7 +27,7 @@ class StudentController extends Controller
         $request->validate([
             'nama' => 'required|min:3',
             'rombel' => 'required',
-            'nisn' => 'required|numeric|unique:students,nisn', // adalah aturan yang memastikan bahwa nilai nisn yang dimasukkan belum ada di dalam database 
+            'nisn' => 'required|numeric|unique:students,nisn',
             'rayon' => 'required',
         ]);
 
@@ -65,7 +65,7 @@ class StudentController extends Controller
             'rayon' => $request->rayon,
         ]);
 
-        return redirect()->route('Siswa.data')->with('sukses', 'berhasil mengubah data!');
+        return redirect()->route('Siswa.data')->with('sukses', 'berhasil mengubah data siswa!');
     }
 
 
@@ -73,6 +73,6 @@ class StudentController extends Controller
     {
         student::where('id', $id)->delete();
 
-        return redirect()->back()->with('hapus', 'berhasil menghapus data!');
+        return redirect()->back()->with('hapus', 'berhasil menghapus data siswa!');
     }
 }
