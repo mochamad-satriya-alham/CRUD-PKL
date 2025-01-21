@@ -25,7 +25,7 @@
     <div class="mb-3">
         <label for="name" class="col-sm-2 col-form-label">Nisn: </label>
         <div>
-            <input type="number" class="form-control @error('nisn') is-invalid @enderror" name="nisn" id="nisn" value="{{ old('nisn') }}" required>
+            <input type="number" class="form-control @error('nisn') is-invalid @enderror" name="nisn" id="nisn" value="{{ old('nisn') }}" min="0" required>
             @error('nisn')
             <div class="invalid-feedback">Nisn ini sudah di pakai.</div>
             @enderror
