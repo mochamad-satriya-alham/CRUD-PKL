@@ -25,7 +25,7 @@ class StudentController extends Controller
     public function proses(Request $request)
     {
         $request->validate([
-            'nama' => 'required|min:3',
+            'nama' => 'required',
             'rombel' => 'required',
             'nisn' => 'required|numeric|unique:students,nisn',
             'rayon' => 'required',
