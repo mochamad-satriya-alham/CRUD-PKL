@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class student extends Model
@@ -11,8 +12,11 @@ class student extends Model
         'nama',
         'rombel',
         'nisn',
-        'rayon',
+        'rayon_id',
     ];
 
-    
+    public function rayon()
+    {
+        return $this->belongsTo(Rayon::class); // Relasi ke tabel rayon
+    }
 }

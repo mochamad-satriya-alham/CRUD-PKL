@@ -27,14 +27,16 @@
             </div>
         </div>
 
-
-        <div class="mb-3 row">
-            <label for="rayon" class="col-sm-2 col-form-label">Rayon: </label>
+        <div class="mb-3 row" >
+            <label for="rayon" class="col-sm-2 col-form-label">Rayon:</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="rayon" name="rayon" value="{{  $student['rayon'] }}">
+            <select name="rayon_id" class="form-control" required>
+                @foreach ($rayons as $rayon)
+                    <option value="{{ $rayon->id }}" {{ $student->rayon_id == $rayon->id ? 'selected' : '' }}>{{ $rayon->Rayon }}</option>
+                @endforeach
+            </select>
             </div>
         </div>
-
 
         <button type="submit" class="btn btn-primary mt-3">Ubah Data</button>
     </form>

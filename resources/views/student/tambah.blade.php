@@ -33,10 +33,12 @@
     </div>
 
     <div class="mb-3">
-        <label for="name" class="col-sm-2 col-form-label">Rayon: </label>
-        <div>
-            <input type="text" class="form-control" name="rayon" id="rayon"  value="{{ old('rayon') }}" required>
-        </div>
+        <label for="rayon" class="col-sm-2 col-form-label">Rayon: </label>
+        <select name="rayon_id" class="form-control" required>
+            @foreach ($rayons as $rayon)
+                <option value="{{ $rayon->id }}">{{ $rayon->Rayon }}</option>
+            @endforeach
+        </select>
     </div>
     <div>
         <button type="submit" class="btn btn-primary mt-3">Tambah Siswa</button>

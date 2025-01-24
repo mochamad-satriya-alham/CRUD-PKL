@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Rayon;
 use App\Models\student;
 use Illuminate\Http\Request;
 
@@ -10,13 +10,14 @@ class StudentController extends Controller
 {
     public function data()
     {
-        $students = student::all();
+        $students = student::with('rayon')->get();
         return view('student.data', compact('students'));
     }
 
     public function buat()
     {
-        return view('student.tambah');
+        $rayons = Rayon::all(); // Ambil semua data rayon
+        return view('student.tambah', compact('rayons'));
     }
 
     /**
@@ -28,14 +29,14 @@ class StudentController extends Controller
             'nama' => 'required',
             'rombel' => 'required',
             'nisn' => 'required|numeric|unique:students,nisn',
-            'rayon' => 'required',
+            'rayon_id' => 'required',
         ]);
 
         student::create([
             'nama' => $request->nama,
             'rombel' => $request->rombel,
             'nisn' => $request->nisn,
-            'rayon' => $request->rayon,
+            'rayon_id' => $request->rayon_id,
         ]);
 
         return redirect()->back()->with('sukses','berhasil di tambah!');
@@ -45,8 +46,8 @@ class StudentController extends Controller
     public function edit($id)
     {
         $student = student::find($id);
-
-        return view('student.edit', compact('student'));
+        $rayons = Rayon::all(); // Ambil semua data rayon
+        return view('student.edit', compact('student', 'rayons'));
     }
 
     public function update(Request $request, $id)
@@ -55,14 +56,14 @@ class StudentController extends Controller
             'nama' => 'required',
             'rombel' => 'required',
             'nisn' => 'required|numeric|unique:students,nisn,' . $id,
-            'rayon' => 'required',
+            'rayon_id' => 'required',
         ]);
 
         student::where('id', $id)->update([
             'nama' => $request->nama,
             'rombel' => $request->rombel,
             'nisn' => $request->nisn,
-            'rayon' => $request->rayon,
+            'rayon_id' => $request->rayon_id,
         ]);
 
         return redirect()->route('Siswa.data')->with('sukses', 'berhasil mengubah data siswa!');

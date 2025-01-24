@@ -25,7 +25,7 @@
                     <td>{{ $item['nama'] }}</td>
                     <td>{{ $item['rombel'] }}</td>
                     <td>{{ $item['nisn'] }}</td>
-                    <td>{{ $item['rayon'] }}</td>
+                    <td>{{ $item->rayon->Rayon }}</td>
                     <td class="d-flex justify-content-center">
                         <a href="{{ route('Siswa.edit', $item->id) }}" class="btn btn-primary me-3">Edit</a>
                         <form action="{{ route('Siswa.hapus', $item['id']) }}" method="POST">

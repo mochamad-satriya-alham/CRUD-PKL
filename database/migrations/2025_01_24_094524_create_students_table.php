@@ -16,8 +16,10 @@ return new class extends Migration
             $table->string('nama');
             $table->string('rombel');
             $table->integer('nisn')->unique();
-            $table->string('rayon');
+            $table->unsignedBigInteger('rayon_id');
             $table->timestamps();
+            
+            $table->foreign('rayon_id')->references('id')->on('rayons')->onDelete('cascade');
         });
     }
 
