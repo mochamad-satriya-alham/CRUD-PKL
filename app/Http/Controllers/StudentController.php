@@ -52,7 +52,7 @@ class StudentController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'nama' => 'required|min:3',
+            'nama' => 'required',
             'rombel' => 'required',
             'nisn' => 'required|numeric|unique:students,nisn,' . $id,
             'rayon' => 'required',
