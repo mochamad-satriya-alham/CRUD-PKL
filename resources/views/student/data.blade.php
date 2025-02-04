@@ -7,8 +7,12 @@
     @if (Session::get('hapus'))
         <div class="alert alert alert-warning">{{ Session::get('hapus') }}</div>
     @endif
+    <div class="back">
+        <a href="{{ route('home') }}" class="btn btn-secondary">Kembali</a>
+    </div>
+    
+    <br>
     <table class="table table-striped table-bordered table-hover">
-
         <thead>
             <th>No</th>
             <th>Nama</th>
@@ -44,7 +48,7 @@
             @csrf
             @method('DELETE')
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel"> Siswa</h1>
+                <h1 class="modal-title fs-5" id="exampleModalLabel"> Konfirmasi Perubahan</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
