@@ -4,8 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StudentController;
 
 Route::get('/', function () {
-    return view('layouts.template');
-});
+    return view('home');
+})->name('home');
 
 Route::prefix('Siswa')->name('Siswa.')->group(function(): void{
     Route::get('create', [StudentController::class, 'buat'])->name('tambah');
