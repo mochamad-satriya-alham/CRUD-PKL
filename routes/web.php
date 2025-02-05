@@ -21,4 +21,6 @@ Route::prefix('Rayon')->name('Rayon.')->group(function(): void{
     Route::get('create/rayon', [RayonController::class, 'create'])->name('create');
     Route::post('proses', [RayonController::class, 'store'])->name('store');
     Route::get('/', [RayonController::class, 'index'])->name('index');
+    Route::get('/{id}', [RayonController::class, 'edit'])->name('edit');
+    Route::patch('/{id}', [RayonController::class, 'update'])->name('update');
 });

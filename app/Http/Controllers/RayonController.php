@@ -37,28 +37,27 @@ class RayonController extends Controller
         return redirect()->route('Rayon.index')->with('sukses','berhasil di tambah!');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    
+    public function edit($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
+        $rayon = Rayon::find($id);
+        return view('Rayon.edit', compact('rayon'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'Rayon' => 'required|unique:rayons,Rayon',
+        ]);
+
+        Rayon::where('id', $id)->update([
+            'rayon' => $request->Rayon,
+        ]);
+
+        return redirect()->route('Rayon.index')->with('sukkses','berhasil di ubah!');
     }
 
     /**
