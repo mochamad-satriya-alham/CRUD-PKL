@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\RayonController;
 
 Route::get('/', function () {
     return view('home');
@@ -14,4 +15,9 @@ Route::prefix('Siswa')->name('Siswa.')->group(function(): void{
     Route::get('/{id}', [StudentController::class, 'edit'])->name('edit');
     Route::patch('/{id}', [StudentController::class, 'update'])->name('update');
     Route::delete('/{id}', [StudentController::class, 'destroy'])->name('hapus');
+});
+
+Route::prefix('Rayon')->name('Rayon.')->group(function(): void{
+    Route::get('create/rayon', [RayonController::class, 'create'])->name('create');
+    Route::post('proses', [RayonController::class, 'store'])->name('store');
 });
