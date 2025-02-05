@@ -23,4 +23,5 @@ Route::prefix('Rayon')->name('Rayon.')->group(function(): void{
     Route::get('/', [RayonController::class, 'index'])->name('index');
     Route::get('/{id}', [RayonController::class, 'edit'])->name('edit');
     Route::patch('/{id}', [RayonController::class, 'update'])->name('update');
+    Route::delete('/{id}', [RayonController::class, 'destroy'])->name('delete');
 });

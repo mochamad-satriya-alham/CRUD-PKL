@@ -37,7 +37,7 @@ class RayonController extends Controller
         return redirect()->route('Rayon.index')->with('sukses','berhasil di tambah!');
     }
 
-    
+
     public function edit($id)
     {
         $rayon = Rayon::find($id);
@@ -63,8 +63,9 @@ class RayonController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        Rayon::where('id', $id)->delete();
+        return redirect()->back()->with('hapus', 'berhasil menghapus Rayon!');
     }
 }
