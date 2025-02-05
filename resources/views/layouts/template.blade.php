@@ -31,7 +31,7 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="{{ route('Rayon.create') }}">Rayon</a>
+                        <a class="nav-link active" href="{{ route('Rayon.index') }}">Rayon</a>
                     </li>
                 </ul>
             </div>

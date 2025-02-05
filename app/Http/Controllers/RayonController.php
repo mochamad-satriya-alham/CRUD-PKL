@@ -6,12 +6,11 @@ use Illuminate\Http\Request;
 
 class RayonController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    
     public function index()
     {
-        
+        $rayons = Rayon::all();
+        return view('Rayon.index', compact('rayons'));
     }
 
     /**
@@ -35,7 +34,7 @@ class RayonController extends Controller
             'rayon' => $request->Rayon,
         ]);
 
-        return redirect()->back()->with('sukses','berhasil di tambah!');
+        return redirect()->route('Rayon.index')->with('sukses','berhasil di tambah!');
     }
 
     /**
