@@ -1,71 +1,65 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Rayon;
+
 use Illuminate\Http\Request;
+use App\Repository\RayonRepositoryInterface;
 
 class RayonController extends Controller
 {
-    
+    protected $rayonRepository;
+
+    public function __construct(RayonRepositoryInterface $rayonRepository)
+    {
+        $this->rayonRepository = $rayonRepository;
+    }
+
     public function index()
     {
-        $rayons = Rayon::all();
+        $rayons = $this->rayonRepository->getAll();
         return view('Rayon.index', compact('rayons'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         return view('Rayon.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $request->validate([
             'Rayon' => 'required|unique:rayons,Rayon',
         ]);
 
-        Rayon::create([
+        $this->rayonRepository->create([
             'rayon' => $request->Rayon,
         ]);
 
-        return redirect()->route('Rayon.index')->with('sukses','berhasil di tambah!');
+        return redirect()->route('Rayon.index')->with('sukses', 'berhasil di tambah!');
     }
-
 
     public function edit($id)
     {
-        $rayon = Rayon::find($id);
+        $rayon = $this->rayonRepository->findById($id);
         return view('Rayon.edit', compact('rayon'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, $id)
     {
         $request->validate([
             'Rayon' => 'required|unique:rayons,Rayon',
         ]);
 
-        Rayon::where('id', $id)->update([
+        $this->rayonRepository->update($id, [
             'rayon' => $request->Rayon,
         ]);
 
-        return redirect()->route('Rayon.index')->with('sukkses','berhasil di ubah!');
+        return redirect()->route('Rayon.index')->with('sukses', 'berhasil di ubah!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy($id)
     {
-        Rayon::where('id', $id)->delete();
+        $this->rayonRepository->delete($id);
         return redirect()->back()->with('hapus', 'berhasil menghapus Rayon!');
     }
 }
