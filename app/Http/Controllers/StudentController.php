@@ -1,55 +1,50 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Rayon;
-use App\Models\student;
-use Illuminate\Http\Request;
 
+use App\Models\Rayon;
+use Illuminate\Http\Request;
+use App\Repository\StudentRepositoryInterface;
 
 class StudentController extends Controller
 {
+    protected $studentRepository;
+
+    public function __construct(StudentRepositoryInterface $studentRepository)
+    {
+        $this->studentRepository = $studentRepository;
+    }
+
+    
     public function data()
     {
-        $students = student::with('rayon')->get();
+        $students = $this->studentRepository->getAllWithRayon();
         return view('student.data', compact('students'));
     }
 
+    
     public function buat()
     {
-        $rayons = Rayon::all(); // Ambil semua data rayon
+        $rayons = Rayon::all(); 
         return view('student.tambah', compact('rayons'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    
     public function proses(Request $request)
     {
-        $request->validate([
-            'nama' => 'required',
-            'rombel' => 'required',
-            'nisn' => 'required|numeric|unique:students,nisn',
-            'rayon_id' => 'required',
-        ]);
-
-        student::create([
-            'nama' => $request->nama,
-            'rombel' => $request->rombel,
-            'nisn' => $request->nisn,
-            'rayon_id' => $request->rayon_id,
-        ]);
-
-        return redirect()->back()->with('sukses','berhasil di tambah!');
+        $this->studentRepository->create($request->all());
+        return redirect()->back()->with('sukses', 'Berhasil di tambah!');
     }
 
-
+    
     public function edit($id)
     {
-        $student = student::find($id);
-        $rayons = Rayon::all(); // Ambil semua data rayon
+        $student = $this->studentRepository->findById($id);
+        $rayons = Rayon::all(); 
         return view('student.edit', compact('student', 'rayons'));
     }
 
+    
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -59,21 +54,16 @@ class StudentController extends Controller
             'rayon_id' => 'required',
         ]);
 
-        student::where('id', $id)->update([
-            'nama' => $request->nama,
-            'rombel' => $request->rombel,
-            'nisn' => $request->nisn,
-            'rayon_id' => $request->rayon_id,
-        ]);
+        $this->studentRepository->update($id, $request->all());
 
-        return redirect()->route('Siswa.data')->with('sukses', 'berhasil mengubah data siswa!');
+        return redirect()->route('Siswa.data')->with('sukses', 'Berhasil mengubah data siswa!');
     }
 
 
     public function destroy($id)
     {
-        student::where('id', $id)->delete();
+        $this->studentRepository->delete($id);
 
-        return redirect()->back()->with('hapus', 'berhasil menghapus data siswa!');
+        return redirect()->back()->with('hapus', 'Berhasil menghapus data siswa!');
     }
 }
